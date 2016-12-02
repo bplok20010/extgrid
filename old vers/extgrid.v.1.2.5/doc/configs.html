@@ -1,0 +1,645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>extGrid文档</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="doc" id="doc">
+	<table class="zebra">
+      <colgroup>
+      <col class="col1">
+      <col class="col2">
+      <col class="col3">
+      <col class="col4">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="parameter">名称</th>
+          <th class="type">类型</th>
+          <th class="default">默认值</th>
+          <th class="note">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>基本参数</abbrev></th>
+        </tr>
+        <tr>
+          <th><a href="#init">init</a></th>
+          <td>Function</td>
+          <td>$.noop</td>
+          <td>初始化时调用,接受参数: opt,this指向grid本身<br><font color="#E16262">以下所有回调函数如果没有注明this 则默认指向grid本身</font></td>
+        </tr>
+        <tr>
+          <th ><a href="#title">title</a></th>
+          <td>String</td>
+          <td >''(为空)</td>
+          <td >标题,为空则不显示</td>
+        </tr>
+        <tr>
+          <th ><a href="#iconCls">iconCls</a></th>
+          <td>String</td>
+          <td >''(为空)</td>
+          <td >标题css样式</td>
+        </tr>
+		<tr>
+          <th ><a href="#toolBars">toolBars</a></th>
+          <td>Array</td>
+          <td >false</td>
+          <td >工具栏按钮<br>
+		  	属性:<br>
+			1.text 文字<br>
+			2.cls 样式<br>
+			3.callBack 回调可接受参数:按钮DOM,当前按钮配置<br>
+			4.disabled 默认false 是否有效
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#ltText">ltText</a></th>
+          <td>String</td>
+          <td >''(为空)</td>
+          <td >rowNumber表头内容</td>
+        </tr>
+		 <tr>
+          <th ><a href="#rowNumbersWidth">rowNumbersWidth</a></th>
+          <td>String</td>
+          <td >0px</td>
+          <td >一般宽度可设为24px<br>
+		  	<font color="#E16262">如果设置为false,则不创建rowNumber可提高显示速度,但是列锁会无效。确定不需要列锁和rowNumber可设置为false提高展示速度。<br>
+			可通过重新设置并刷新gird来动态设置这个值
+			</font>
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#rowNumbersExpand">rowNumbersExpand</a></th>
+          <td>String,Boolean,Function</td>
+          <td >false</td>
+          <td>
+		  	rowNumbersExpand : false|'auto'|模板内容|函数<br>
+			false:rowNumber显示的数字都在1~pageSize之间<br>
+			'auto' : rowNumber显示的数字是在当前页加pageSize的数<br>
+			剩下的2个都属于自定义rowNumber内容参数 <br>
+			函数可接受当前行数据<br>
+			模板也是当前行数据
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#rowNumbers2Row">rowNumbers2Row</a></th>
+          <td>Boolean</td>
+          <td >true</td>
+          <td >click rowNumber时可触发行的click事件</td>
+        </tr>
+		 <tr>
+          <th ><a href="#showHeader">showHeader</a></th>
+          <td>Boolean</td>
+          <td >true</td>
+          <td >显示列头</td>
+        </tr>
+		 <tr>
+          <th ><a href="#containerCss">containerCss</a></th>
+          <td>String</td>
+          <td >datagrid-container-border</td>
+          <td >设置grid样式，默认是设置了边框</td>
+        </tr>
+		 <tr>
+          <th ><a href="#rowTpl">rowTpl</a></th>
+          <td>String</td>
+          <td >''</td>
+          <td >
+		  自定义行模板<br>
+		  	<font color="#E16262">
+			不建议使用,因为当定义了行模板时拖动列交换位置会失效<br>
+			建议用rowCallBack or 单元格回调来为不同行实现不同功能
+			</font>
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#headerTpl">headerTpl</a></th>
+          <td>String,jquery选择器字符串</td>
+          <td >''</td>
+          <td >自定义列头
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#border">border</a></th>
+          <td>Boolean</td>
+          <td >true</td>
+          <td >设置边框
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#leftBorder">leftBorder</a></th>
+          <td>Number</td>
+          <td >1</td>
+          <td >左边框大小（和css设置的数值要对应）
+		  </td>
+        </tr>
+		 <tr>
+          <th ><a href="#rightBorder">rightBorder</a></th>
+          <td>Number</td>
+          <td >1</td>
+          <td >右边框大小（和css设置的数值要对应）
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#topBorder">topBorder</a></th>
+          <td>Number</td>
+          <td >1</td>
+          <td >上边框大小（和css设置的数值要对应）
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#bottomBorder">bottomBorder</a></th>
+          <td>Number</td>
+          <td >1</td>
+          <td >下边框大小（和css设置的数值要对应）
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#padding">padding</a></th>
+          <td>Number</td>
+          <td >8</td>
+          <td >单元格左右内边距和（和css设置的数值要对应）
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#width">width</a></th>
+          <td>Number</td>
+          <td>自动填充容器</td>
+          <td >grid宽度，
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#height">height</a></th>
+          <td>Number</td>
+          <td>自动填充容器</td>
+          <td >grid高度，
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#checkBox">checkBox</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >是否开启多选列，单选和多选
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#checkBoxWidth">checkBoxWidth</a></th>
+          <td>Number,String</td>
+          <td>28px</td>
+          <td >多选列宽度
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#checkBoxTitle">checkBoxTitle</a></th>
+          <td>String</td>
+          <td><input type="checkbox"></td>
+          <td >列头，最好不要去修改
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#checkBoxFit">checkBoxFit</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >多选列是否可以改变大小
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#editColumn">editColumn</a></th>
+          <td>Array</td>
+          <td>false</td>
+          <td >编辑列<br>
+		  <font color="#E16262">
+		  Array参数 可参考 toolBars ,callBack参数不一样，可接受的参数：t(当前按钮),rowId(行id),field('ed'),rowData(当前行数据),_item_(当前按钮配置参数)
+		  </font>
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#editColumnTitle">editColumnTitle</a></th>
+          <td>String</td>
+          <td>操作</td>
+          <td >编辑列头信息
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#editColumnFit">editColumnFit</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td >编辑列是否可以改变大小
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#editCellW">editCellW</a></th>
+          <td>Number</td>
+          <td>63</td>
+          <td >编辑按钮的宽度
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#singleSelect">singleSelect</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >是否只能单选
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#moveColumns">moveColumns</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td >列是否可拖拽交换位置
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#moveColumnTm">moveColumnTm</a></th>
+          <td>Number</td>
+          <td>500</td>
+          <td >按下500ms后 会触发列拖拽效果
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#columns">columns</a></th>
+          <td>Array</td>
+          <td>空数组</td>
+          <td >表头信息,基本信息可参考_columnMetaData，eg columns : [{_columnMetaData},{_columnMetaData}] 
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#_columnMetaData">_columnMetaData</a></th>
+          <td>Object</td>
+          <td>
+<pre>
+field : '',
+index : '',
+title : '',
+width : '120px',
+minWidth : 20,//最小宽度 新增
+align : 'left',
+_expand : false,
+callBack : $.noop,
+hcls : '',
+bcls : '',
+fcls : '',
+sortable : false,， 
+textLimit : false,
+fitColumn : true,
+disabled : false
+</pre>		
+		  </td>
+          <td >
+		 1. field String 当前列的命名<br>
+		 2. index String 当前列与data数据对应字段，默认等于filed<br>
+		 3. title String 列头信息<br>
+		 4. width Number,String 当前列宽度 默认120px ,可接受 百分比，eg:以下参数是合格的: 120,'120px','30%'<br>
+		 5. align String 居中方式<br>
+		 6. _expand String(模板) 自定义单元格内容显示模板<br>
+		 7. callBack Function 单元格回调<br>
+		 8. hcls String 列头单元格样式<br>
+		 9. bcls String 单元格样式<br>
+		 10. fcls String 无效<br>
+		 11. sortable Boolean 排序<br>
+		 12. textLimit Boolean 文字溢出(即将废弃,不建议用)<br>
+		 13. fitColumn Boolean 当前列是否可改变大小<br>
+		 14.  disabled Boolean 当前列是否无效<br>
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#groupBy">groupBy</a></th>
+          <td>String</td>
+          <td>false</td>
+          <td >对某列进行分组,eg groupBy:'title',设置后需要刷新grid
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#groupList">groupList</a></th>
+          <td>Array</td>
+          <td>false</td>
+          <td >分组条件,eg groupList:['2013','2014','2014'] 则对以上进行分组，默认则直接对数据分组
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#groupListCallBack">groupListCallBack</a></th>
+          <td>Function</td>
+          <td>$.noop</td>
+          <td >分组行 回调，接受参数 groupCell,groupName,groupData
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#autoScrollToField">autoScrollToField</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td >自动将对应列移到可视位置
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#autoScrollToRow">autoScrollToRow</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td >自动将对应行移到可视位置
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#data">data</a></th>
+          <td>Array</td>
+          <td>[]</td>
+          <td >grid当前页显示数据，<br>注：<br>
+		  _pk,_expand,_groupid_属于grid内部字段，不可外部进行设置<br>
+		  _expand字段设置后会自动触发expandRow
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#emptyGridMsg">emptyGridMsg</a></th>
+          <td>String</td>
+          <td>''</td>
+          <td >grid显示的data为空时 grid显示的提示内容
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#showEmptyGridMsg">showEmptyGridMsg</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td >开启emptyGridMsg
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#lockRows">lockRows</a></th>
+          <td>Array</td>
+          <td>[]</td>
+          <td >默认需要锁的行
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#lockColumns">lockColumns</a></th>
+          <td>Array</td>
+          <td>[]</td>
+          <td >默认需要锁的列
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#hideColumns">hideColumns</a></th>
+          <td>Array</td>
+          <td>[]</td>
+          <td >默认需要隐藏的列
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#url">url</a></th>
+          <td>String,Function</td>
+          <td>''</td>
+          <td >grid数据获取地址
+		  Function:
+		  eg:
+		 <pre>
+$(selector).extgrid({url:getGridData});
+function getGridData(data,success,error){
+	//获取grid数据
+	//data包含分页信息
+	//success(josn_data) 获取数据后成功后回调函数
+	//error(msg) 获取数据后失败后回调函数
+	//success,error必须要调用其中一个，
+	//否则grid会处于loading
+//json_data:
+// {total:"255",
+	rows:[{},..] [,pageSize:50,pageNumber:1,
+	columns:[{}]]}	
+//pageSize,pageNumber,columns是可选	
+}
+		</pre>
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#method">method</a></th>
+          <td>String</td>
+          <td>'post'</td>
+          <td >请求类型
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#dataType">dataType</a></th>
+          <td>String</td>
+          <td>json</td>
+          <td >接受数据格式
+		  目前只接受json格式数据，如果需要xml格式数据，那么需要自定义解析函数，
+<pre>
+eg ：
+通过
+...
+dataType : 'xml',
+init:function(){
+this.xmlFilter = function(){
+	//对xml处理
+	return json_data;
+}
+}
+...
+</pre>
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#loadMsg">loadMsg</a></th>
+          <td>String</td>
+          <td>'加载中,请稍后...'</td>
+          <td >请求中的显示信息
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#queryParams">queryParams</a></th>
+          <td>Object</td>
+          <td>{}</td>
+          <td >请求数据
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pagination">pagination</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >开启分页工具栏
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pagerToolBar">pagerToolBar</a></th>
+          <td>Array</td>
+          <td>false</td>
+          <td >参考toolBars
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pagerMsg">pagerMsg</a></th>
+          <td>String</td>
+          <td>当前显示 {start} 到 {end} 条，共 {total} 条</td>
+          <td >分页栏状态信息
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pageNumber">pageNumber</a></th>
+          <td>Number</td>
+          <td>1</td>
+          <td >默认当前的页数
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pageSize">pageSize</a></th>
+          <td>Number</td>
+          <td>10</td>
+          <td >默认当前页显示数
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#pageList">pageList</a></th>
+          <td>Array</td>
+          <td>[10,20,30,40,50]</td>
+          <td >可选的pageSize下拉框
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#sortName">sortName</a></th>
+          <td>String</td>
+          <td>''</td>
+          <td >进行排序的列
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#sortOrder">sortOrder</a></th>
+          <td>String</td>
+          <td>'asc'</td>
+          <td >排序类型
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#rowStyler">rowStyler</a></th>
+          <td>String,Function</td>
+          <td>''</td>
+          <td >行样式<br>
+		  Function可接受参数rowid,rowdata
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#rowCallBack">rowCallBack</a></th>
+          <td>String</td>
+          <td>$.noop</td>
+          <td >参考rowStyler=Function
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#denyRowEvents">denyRowEvents</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >禁止绑定行事件，可极大提高展示速度，但是会少去很多功能，需要手动绑定事件
+		  </td>
+        </tr>
+         <th class="separate" colspan="4"><abbrev>可编辑Grid扩展参数</abbrev></th>
+		 <tr>
+          <th ><a href="#type">type</a></th>
+          <td>String</td>
+          <td>text</td>
+          <td >输入框类型,目前支持的类型有:text,checkbox,select,date,spinner,textarea
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#type">value</a></th>
+          <td>String</td>
+          <td>''</td>
+          <td >默认值
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#items">items</a></th>
+          <td>Array</td>
+          <td>''</td>
+          <td >select下拉框会用到，常用属性有name:'',value:'',selected:true<br>
+		  完整如下<pre>
+cls:'',
+name:'',
+value:'',
+readOnly:false,
+disabled:false,
+selected:false,
+attrs:''
+		  </pre>
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#width+height">width+height</a></th>
+          <td>Number</td>
+          <td>''</td>
+          <td >默认不需要设置，height对textarea有效
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#step">step</a></th>
+          <td>Number</td>
+          <td>1</td>
+          <td >spinner控件参数
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#smax">smax</a></th>
+          <td>Number</td>
+          <td>''</td>
+          <td >spinner控件参数
+		  </td>
+		  
+        </tr>
+		<tr>
+          <th ><a href="#smin">smin</a></th>
+          <td>Number</td>
+          <td>''</td>
+          <td >spinner控件参数
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#onCheck">onCheck</a></th>
+          <td>Array</td>
+          <td>['onBlur','onPaste']</td>
+          <td >触发那些事件时候进行数据验证
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#disabled">disabled</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >是否有效
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#readOnly">readOnly</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td >是否只读
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#cls">cls</a></th>
+          <td>String</td>
+          <td>''</td>
+          <td >自定义样式
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#attrs">attrs</a></th>
+          <td>String</td>
+          <td>''</td>
+          <td >自定义属性
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#rules">rules</a></th>
+          <td>String,Array</td>
+          <td>''</td>
+          <td >验证规则eg:rules:[ func,"required",{required:func},{qq:'qq..'} ],自定义函数返回false则表示验证错误<br>
+		  支持的验证类型:required,email,url,ip,qq,currency,mobile,phone,number,rangelength,min,max,range,equalTo
+		  </td>
+        </tr>
+		<tr>
+          <th ><a href="#error">error</a></th>
+          <td>String</td>
+          <td>'valid-error'</td>
+          <td >验证错误样式
+		  </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</body>
+</html>

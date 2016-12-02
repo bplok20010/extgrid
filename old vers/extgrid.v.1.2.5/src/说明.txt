@@ -1,0 +1,28 @@
+js/css加载顺序：
+1.datepicker
+2.formui.js
+3.extgrid.js
+4.extgrid.extend.js
+
+
+extgrid包
+	jquery.extgrid.v.1.2.5.min.js
+	
+extgrid可编辑扩展包
+	jquery.extGrid.edit.min.js 
+	
+extgrid自适应扩展包
+	jquery.extgrid.responsive.min.js 
+	
+extgrid可扩展包需要的ui组件，同时也需要datepicker的WdatePicker.js文件
+	jquery.form.ui.all.1.0.min.js 
+
+
+包含（jquery.extgrid.v.1.2.5.all.min.js ） 
+	extgrid包
+	extgrid可编辑扩展包
+	extgrid自适应扩展包
+	extgrid可扩展包需要的ui组件
+注意 不包含datepicker，所以要手动引入WdatePicker.js
+	
+	

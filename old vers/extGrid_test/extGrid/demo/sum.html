@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<script type="text/javascript" src="../src/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.table_sum').each(function(i) {
+					$('tr', this).each(function(j) {
+							var rowsum=0;
+								$('td', this).each(function(k) {
+									if(j>=2&&j<=3){
+								   		  
+								   		if(k>=0&&k<=1){
+								   		 rowsum+= Number($(this).html());
+								   		}
+								   		if(k==2){//设置行总和
+											$(this).html(rowsum);
+										}
+									}
+								});
+					});
+		 			
+		 			var sum = 0;
+					$('tr', this).each(function() {
+						if (Number($('td', this).eq(0).html()) >= 0) {
+							sum += Number($('td', this).eq(2).html());
+						}
+					});
+					 //设置结果列总和
+					$('.sum', this).html(sum);
+		 			
+				});
+			});
+</script>
+	</head>
+	<body>
+		<table width="100%" border="1" class="table_sum">
+			<tr>
+				<td colspan="3">
+					产品1号(table的class=num_sum)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					产品1
+				</td>
+				<td>
+					产品2
+				</td>
+				<td>
+					总产品
+				</td>
+			</tr>
+			<tr>
+				<td>
+					10
+				</td>
+				<td>
+					2
+				</td>
+				<td>
+			 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					20
+				</td>
+				<td>
+					3
+				</td>
+				<td>
+				
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="2">
+					合计
+				</td>
+				<td class="sum">
+					5(JQUERY自动计算结果,td的class=sum)
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

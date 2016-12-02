@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>extGrid-下载</title>
+<link rel="stylesheet" href="demo/style.css" type="text/css" media="all" />
+<link href="demo/demo.css" type="text/css" rel="stylesheet" />
+<Meta name="Copyright" Content="grid,js,javascript,jquery,datagrid,table">
+<meta name="keywords" content="grid-js-javascript-jquery-datagrid-table">
+<meta name='description' content='grid-js-javascript-jquery-datagrid-table'>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<style type="text/css">
+<!--
+.STYLE1 {color: #DD0000}
+-->
+.strong { font-weight:bold;}
+.left-side a:hover { font-weight:bold; text-decoration:none;}
+</style></head>
+
+<body>
+<div class="header">
+
+    <div class="wraper">
+        <ul class="nav">
+            <li><a href="./index.html" >Demo</a></li>
+			 <li><a href="./download.html"  class="current">下载</a></li>
+            <!--<li><a href="./document.html">文档</a></li>
+
+           
+
+            <li><a href="./help.html">帮助</a></li>
+
+            <li><a href="/?p=1">留言</a></li>-->
+
+        </ul>
+
+    </div>
+
+</div>
+<div class="main">
+    <div class="wraper">  
+		<div style="color:red;">
+			<strong>v1.2 BUG 发现以及修改方法:<br>
+		由于发布之前没有清空测试数据，导致现在最多只能显示50行数据，请手动设置_lSize:0，修正如下：
+		</strong>
+<pre>
+$(selector).extgrid({
+	...
+	_lSize:0,
+	...
+});
+</pre>
+		</div>
+		<div>
+			<strong>v1.0~v1.2 BUG 发现以及修改方法:<br>
+		FireFox下行锁出现的数据不显示问题修正：<br>
+		在CSS中加入以下样式：<br>
+		</strong>
+<pre>
+.datagrid-header-outer {
+	float: left;
+	width: 100%;
+	overflow:hidden;
+	/* zoom:1;*/
+}
+</pre>
+		</div>
+		<hr />  
+		<div class="left-side">
+			<ul>
+				<li><a href="#20130907">最新 v1.2.4</a></li>
+				<li><a href="#20130906">2013-09-06</a></li>
+				<li><a href="#20130903">2013-09-03</a></li>
+				<li><a href="#20130901">2013-09-01</a></li>
+				<li><a href="#20130831">2013-08-31</a></li>
+				<li><a href="#20130805">2013-08-05</a></li>
+			</ul>
+		</div>  
+		<div class="right-side">
+			<div id="20130907" style="display:none;"><a href="extgrid.v1.2.4.zip">extgrid.v1.2.4.zip 下载</a><br>
+			<a href="extGrid.edit.zip">extGrid.edit.zip 可编辑单元格（demo）</a><br>
+v 1.2.4 									   			 							<br>
+1.修改事件处理函数 																<br>
+2.分页工具栏优化																	<br>
+3.修正单元格事件返回false不阻止事件传递									<br>
+4.新增事件 和修改部分事件名												<br>
+5.新增 $.extGrid.puglins:[]插件队列，系统会调用里面的自定义插件函数		<br>
+6.修正ajax 获取数据后调用不同的数据解析函数 eg jsonFilter						<br>
+7.修正v1.2.3下分页工具栏出现js报错问题										<br>
+8.修正列锁后被锁列事件缺失问题													<br>
+9.新增触发单元格事件时检测当前对象是否单元格											<br>
+10.新增API scrollToField,scrollToRow和配置参数 autoScrollToField/Row	
+			</div>
+			<div id="20130906" style="display:none;"><a href="extgrid.v1.2.3.zip">extgrid.v1.2.3.zip 下载</a><br>
+v 1.2.3	 									   			 							<br>
+1.修正大数据下 导致深复制出现的问题														<br>
+2.分页工具栏按钮优化																	<br>
+3.提高核心函数模板生成的性能															<br>
+4.新增showHeader 开关 可控制是否显示header 对应的api: showHeader hideHeader				<br>
+5.新增数据为空时 滚动条不出现问题（可选择性开启）											<br>
+6.新增API updateGrid(data);  用户可自己设置显示数据 方便二次开发							<br>
+7.新增参数emptyGridMsg 当grid数据为空时 显示在grid里的数据								<br>
+8.showEmptyGridMsg:true 当设置为true emptyGridMsg则开启,否则关闭						<br>
+	注:开启后 显示内容的宽度和gridHeader一样,也就是说超出宽度时会显示滚动条					<br>
+9.修正showLoading时事件传递问题														<br>
+10.提升分页栏性能		
+			</div>
+			<div id="20130903" style="display:none;"><a href="extgrid.v1.2.2.zip">extgrid.v1.2.2.zip 下载</a><br>
+			
+v 1.2.2      								   			<br>
+1.修正列锁情况下 Loading 出现的header次序混乱问题        <br>
+2.修正resize line 边框样式写死                     <br>
+3.修正对数据排序后 出现的大小改变问题  
+			</div>
+			<div id="20130901" style="display:none;"><a href="extgrid.1.2.1.zip">extgrid.1.2.1.zip 下载</a><br>
+v 1.2.1       								   			<br>
+1.新增 column中index 数据索引参数                       <br>
+2.修正某些函数重复调用getColumns问题                   <br>
+3.修正IE下刷新空白问题                               <br>
+4.修正v1.2版本_lSize没清0导致的BUG                <br>   
+5.修正 v1.2以下出现的BUG
+			</div>
+			<div id="20130831" style="display:none;"><a href="extgrid.1.2.zip">extgrid.1.2.zip 下载</a>(性能优化)<br>
+				修正核心函数 提升数据展示速度，修正部分函数性能                 <br>
+					1.新增 denyRowEvents : false,//禁止或使用自定义事件     <br>
+					2.新增 onOverCell onOutCell      用法可参考 onClickCell 
+			</div>
+			<div id="20130805" style="display:none;"><a href="extgrid.zip">extgrid.zip 下载</a></div>
+		</div>
+		
+		
+		<div style="clear:both;"></div>
+    </div>
+</div>
+<div class="footer" style="">
+    <div class="wraper">      
+
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$(".left-side a").click(function(){
+		$(">div",'.right-side').hide();
+		$(".left-side a").removeClass("strong");
+		$(this).addClass("strong");
+		$($(this).attr("href")).show();
+	});
+	$(".left-side a").first().click();
+});
+</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=26881805" charset="UTF-8"></script>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>extGrid-表格</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/SyntaxHighlighter.css" type="text/css" media="all" />
+<Meta name="Copyright" Content="grid,js,javascript,jquery,datagrid,table">
+<meta name="keywords" content="grid-js-javascript-jquery-datagrid-table">
+<meta name='description' content='grid-js-javascript-jquery-datagrid-table'>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/SyntaxHighlighter.js"></script>
+<style type="text/css">
+<!--
+.STYLE1 {color: #DD0000}
+-->
+.strong { font-weight:bold;}
+.left-side a:hover { font-weight:bold; text-decoration:none;}
+</style></head>
+
+<body>
+<div class="header">
+    <div class="wraper">
+        <ul class="nav">
+            <li><a href="./index.html"  class="current">首页</a></li>
+			<li><a href="./configs.html">文档</a></li>
+			<li><a href="./events.html">事件</a></li>
+			<li><a href="./api.html">API</a></li>
+			<li><a href="./index.html">扩展</a></li>
+			<li><a href="./index.html">演示</a></li>
+			<li><a href="./index.html">帮助</a></li>
+			
+			<li><a href="http://www.extgrid.com/download.html?demo">下载</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="wraper">  
+		<div class="doc doc-title">
+			<h2>基本参数</h2>
+		</div>
+		<div class="doc doc-content">
+			<table class="doc-table">
+				<thead>
+					<tr>
+						<th width="96px">名称</th>
+						<th width="70px">类型</th>
+						<th width="60px">默认值</th>
+						<th width="220px">格式举例(<font color="#E16262">没特别说明this都指向grid本身</font>)</th>
+						<th width="255px">含义</th>
+					</tr>
+				</thead>	
+				<tbody>	
+					<tr>
+						<td class="doc-conf">renderTo</td>
+						<td>jquery object</td>
+						<td>null</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									renderTo:$("#grid"),
+									...
+								});
+							</pre>
+						</td>
+						<td>显示位置，如果不是通过new 创建则不需要去设置</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">init</td>
+						<td>Function</td>
+						<td>$.noop</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									init:function(opt){ 
+										var self = this; 
+										//...
+									},
+									...
+								});
+							</pre>
+						</td>
+						<td>初始化时调用,接受参数: opt</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">width</td>
+						<td>Number</td>
+						<td>700</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									width:700,
+									...
+								});
+							</pre>
+						</td>
+						<td>设置grid的宽度，如果不是通过new创建,一般不需要设置，grid会根据renderTo自动获取</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">height</td>
+						<td>Number</td>
+						<td>250</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									height:250,
+									...
+								});
+							</pre>
+						</td>
+						<td>设置grid的高度，如果不是通过new创建,一般不需要设置，grid会根据renderTo自动获取</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">minWidth,maxWidth</td>
+						<td>Number</td>
+						<td>0</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									minWidth:0,
+									maxWidth:0,
+									...
+								});
+							</pre>
+						</td>
+						<td>设置grid的最小/大宽度,0表示不限</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">minHeight,maxHeight</td>
+						<td>Number</td>
+						<td>0</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									minHeight:0,
+									maxHeight:0,
+									...
+								});
+							</pre>
+						</td>
+						<td>设置grid的最小/大高度,0表示不限</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">title</td>
+						<td>String</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									title:'GRID DEMO',
+									...
+								});
+							</pre>
+						</td>
+						<td>grid标题,为空则不显示,初始化创建才有效</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">iconCls</td>
+						<td>String</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									title:'GRID DEMO',
+									iconCls : 'list',
+									...
+								});
+							</pre>
+						</td>
+						<td>设置title后才有效</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">toolBars</td>
+						<td>Array</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									toolBars:[
+										{text:'新增',cls:'icon-add',callBack:function(dom,tool_conf){},disabled:false},
+										{text:'删除',cls:'icon-delete',callBack:function(dom,tool_conf){},disabled:false}
+									],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+							工具栏按钮<br>
+							属性:<br>
+							1.text:文字<br>
+							2.cls:样式<br>
+							3.callBack:回调可接受参数:按钮DOM,当前按钮配置<br>
+							4.disabled:默认false 是否有效<br>
+							<font color="#E16262">callBack 不会因为disabled=true而失效，应该在回调里判断当前按钮是否有效</font>
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowNumbersWidth</td>
+						<td>Number</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									rowNumbersWidth:24,
+									...
+								});
+							</pre>
+						</td>
+						<td>是否显示rowNumber,并设置大小。false 不显示</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowNumbersExpand</td>
+						<td>false|auto|Function|tpl</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									rowNumbersWidth:'auto',//可以是false(默认)|auto|Function|tpl
+									...
+								});
+							</pre>
+						</td>
+						<td>
+							false<br/>
+							序列号会自增<br/>
+							auto <br/>
+							序列号会自增,但是分页后还是会从1开始自增<br/>
+							Function(data)<br/>
+							自定义函数，返回的值将作为rowNumbersWidth的值,data是当前行数据<br/>
+							tpl <br/>
+							自定义模板显示,模板数据也是当前行数据<br/>
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">ltText</td>
+						<td>String</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									ltText:'#',
+									...
+								});
+							</pre>
+						</td>
+						<td>rowNumber表头内容(rowNumbersWidth不等于false有效)</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowNumbers2Row</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									rowNumbers2Row:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>开启后，当点击rowNumber时会作用于当前行</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">showHeader</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									showHeader:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>是否显示表头</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">showFooter</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									showFooter:false,
+									...
+								});
+							</pre>
+						</td>
+						<td>是否显示尾行,默认是不显示(如果需要开启,应该引入footer.js,尾行只是一个空尾行)</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">headerTpl</td>
+						<td>String</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									headerTpl:'&lt;tr&gt;&lt;th data-options="field:\'id\',title:\'ID\',width:120"&gt;&lt;/th&gt;&lt;/tr&gt;',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自定义表头，更多方法可参考DEMO<br>
+						注:如果使用了自定义表头，要开启多选列或编辑列，必须要在自定义模板里定义
+						&lt;th field='ck'&gt; &lt;/th&gt;
+						&lt;th field='ed'&gt; &lt;/th&gt;
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowTpl</td>
+						<td>String(模板)</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									rowTpl:'&lt;tr&gt;&lt;td&gt;&lt;%=id&gt;&lt;/td&gt;&lt;/tr&gt;',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自定义行模板,模板参数是当前行数据,更多方法可参考DEMO<br>
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">border</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									border:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						控制containerCss是否有效
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">containerCss</td>
+						<td>String</td>
+						<td>'datagrid-container-border'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									containerCss:'datagrid-container-border',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						grid样式设置，默认样式设置了边框,border开启后才有效
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">clsOverRow</td>
+						<td>String</td>
+						<td>'datagrid-row-over'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									clsOverRow:'datagrid-row-over',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						鼠标经过行的显示样式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">clsSelectRow</td>
+						<td>String</td>
+						<td>'datagrid-row-selected'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									clsSelectRow:'datagrid-row-selected',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						行选中后的显示样式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">clsSingleRow</td>
+						<td>String</td>
+						<td>'datagrid-row-single'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									clsSingleRow:'datagrid-row-single',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						单号行样式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">clsDoubleRow</td>
+						<td>String</td>
+						<td>'datagrid-row-double'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									clsDoubleRow:'datagrid-row-double',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						双号行样式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">lazyLoadRow</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									lazyLoadRow:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否开启数据懒加载模式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">pageTotal</td>
+						<td>Number</td>
+						<td>0</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									pageTotal:100000,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						在lazyLoadRow模式下，如果pageTotal不设置，那么默认会自动获取当前页的数据作为pageTotal<br/>
+						pageTotal是设置当前页下应该需要加载的行数<br/>
+						pageTotal可用来控制lazyLoadRow显示行数,是一个虚拟值,与total 不同的是 total是用来控制分页工具栏和当前页的实际显示数,某些情况下这2个值应该相等
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">lazyMaxRow</td>
+						<td>Number</td>
+						<td>0</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									lazyMaxRow:0,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						设置每次懒加载的行数，如果大于0则生效
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">lazyRows</td>
+						<td>Array</td>
+						<td>[]</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									lazyRows:[],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						不需要手动设置，这个参数是在当前lazyLoadRow模式下的的显示行数
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">lazyTopRows</td>
+						<td>Number</td>
+						<td>5</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									lazyTopRows:5,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						多加载5行数据，lazyMaxRow=0的情况下才有效
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">lazyBottomRows</td>
+						<td>Number</td>
+						<td>5</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									lazyBottomRows:5,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						多加载5行数据，lazyMaxRow=0的情况下才有效
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">showLazyLoading</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									showLazyLoading:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						在进行懒加载行的情况下是否显示Loading提示
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">_lazyEdge</td>
+						<td>Number</td>
+						<td>80</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									_lazyEdge:80,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						在距离80px的时候开始懒加载
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">autoHeight</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									autoHeight:false,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自动适应grid的高度，而不出现滚动条，<font color="#E16262">lazyLoadRow模式下不要使用</font>
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">minAutoHeight</td>
+						<td>Number</td>
+						<td>50</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									minAutoHeight:50,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自适应开启后 的最小高度
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">maxAutoHeight</td>
+						<td>Number</td>
+						<td>0</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									maxAutoHeight:0,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自适应开启后 的最大高度，0 表示无限
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">checkBox</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									checkBox:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否开启多选列
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">checkBox</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									checkBox:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否开启多选列
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">checkBoxWidth</td>
+						<td>Number</td>
+						<td>24</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									checkBoxWidth:24,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						多选列大小
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">checkBoxForceFit</td>
+						<td>Boolan</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									checkBoxForceFit:false,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否自适应大小,需要开启forceFit
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">checkBoxFit</td>
+						<td>Boolan</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									checkBoxFit:false,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否可改变列大小
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">editColumn</td>
+						<td>Array</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									editColumn:[{text:'编辑',cls:'icon-edit',callBack:function(){},disabled:false}],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						<font color="#E16262">
+						  Array参数 可参考 toolBars ,callBack参数不一样，可接受的参数：t(当前按钮),rowId(行id),field('ed'),rowData(当前行数据),_item_(当前按钮配置参数)
+						  </font>
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">editColumnTitle</td>
+						<td>String</td>
+						<td>'操作'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									editColumnTitle:'操作',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						编辑列表头信息
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">editColumnFit</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									editColumnFit:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						编辑列是否可以改变大小
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">editCellW</td>
+						<td>Number</td>
+						<td>63</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									editCellW:63,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						编辑按钮的宽度
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">editColumnForceFit</td>
+						<td colspan="4">(作用同checkBoxForceFit)</td>
+						
+					</tr>
+					<tr>
+						<td class="doc-conf">moveColumns</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									moveColumns:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						列是否可拖拽交换位置
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">moveColumnTm</td>
+						<td>Number</td>
+						<td>500</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									moveColumnTm:500,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						按下500ms后 会触发列拖拽效果
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">forceFit</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									forceFit:false,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						列大小是否根据比例自动设置
+						</td>
+					</tr>
+					<tr>
+					  <td class="doc-conf">columns</td>
+					  <td>Array</td>
+					  <td>空数组</td>
+					  <td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									columns:[{field:'id',title:'ID'},{field:'name',title:'用户'}],
+									...
+								});
+							</pre>
+						</td>
+					  <td >表头信息,基本信息可参考_columnMetaData，eg columns : [{_columnMetaData},{_columnMetaData}] 
+					  </td>
+					</tr>
+					<tr>
+					   <td class="doc-conf">_columnMetaData</td>
+					  <td>Object</td>
+					  <td colspan="2">
+						<pre name="code" class="javascript">
+						{
+						field : '',
+						index : '',//数据索引，默认==field
+						title : '',
+						width : 120,//默认的列宽,可设置百分比
+						minWidth : 20,//默认最小宽度
+						maxWidth : null,
+						align : 'left',
+						_expand : false,//自定义列内容
+						callBack : $.noop,
+						hcls : '',//header cell自定义css 样式名
+						bcls : '',//body cell自定义css 样式名
+						fcls : '',//footer cell自定义css 样式名
+						sortable : false, //需要引入sort.js
+						fitColumn : true,//改变列大小
+						casePerChange : true,//如果当前列设置的是百分比大小，手动修改列大小后 设置为true:grid刷新会失去百分比作用,false:grid刷新时不会失去百分比作用，而是失去手动修改后的宽度
+						reader : {},//映射eg { 0:'男',1:'女',2:function(){return:'未知'},'_default_':'其他' }
+						forceFit : true,//接受forceFit开启时自动设置列大小 checkbox edit 列会设置为false
+						disabled : false//当前列不可用
+						}
+						</pre>		
+					  </td>
+					  
+					  <td >
+						 1. field String 当前列的命名<br>
+						 2. index String 当前列与data数据对应字段，默认等于filed<br>
+						 3. title String 列头信息<br>
+						 4. width Number,String 当前列宽度 默认120px ,可接受 百分比，eg:以下参数是合格的: 120,'120px','30%'<br>
+						 5. align String 居中方式<br>
+						 6. _expand String(模板) 自定义单元格内容显示模板<br>
+						 7. callBack Function 单元格回调<br>
+						 8. hcls String 列头单元格样式<br>
+						 9. bcls String 单元格样式<br>
+						 10. fcls String 无效<br>
+						 11. sortable Boolean 排序<br>
+						 13. fitColumn Boolean 当前列是否可改变大小<br>
+						 14. disabled Boolean 当前列是否无效<br>
+					  </td>
+					</tr>
+					<tr>
+						<td class="doc-conf">autoScrollToField</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									autoScrollToField:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						点击后自动将对应列移到可视位置
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">autoScrollToRow</td>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									autoScrollToRow:true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						点击后自动将对应行移到可视位置
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">emptyGridMsg</td>
+						<td>String</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									emptyGridMsg:'无数据',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						grid当前页的的data数据为空时 grid显示的提示内容
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">pk</td>
+						<td>String</td>
+						<td>'_pk'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									pk :'_pk',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						主键设置 ,默认会自动以_pk作为主键，是一个无序的数
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">hideColumns</td>
+						<td>Array</td>
+						<td>[]</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									hideColumns : ['id','name'],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						设置隐藏列
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">selectRows</td>
+						<td>Array</td>
+						<td>[]</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									selectRows : [],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						已选择的列，不要去设置，
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">data</td>
+						<td>Array</td>
+						<td>[]</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									data : [],
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						grid当前页显示数据，
+						注：
+						_pk,_expand,_groupid_属于grid内部字段，不可外部进行设置
+						_expand字段设置后会自动触发expandRow
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">url</td>
+						<td>String|Function</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								//url 为字符
+								var grid = new dataGrid({ 
+									...
+									url : '/list/index',
+									...
+								});
+							</pre>
+							<pre name="code" class="javascript">
+								//url 为Function
+								var getData = function(d,success,error){
+									...//d包含pageNumber,pageSize 等信息
+									...//自定义获取json_data数据//如果返回的不是json格式数据需要自行处理成json格式
+									if( TRUE )
+										success(json_data)//json_data是自定义获取的数据
+									else 
+										error( msg )//错误信息
+								}
+								var grid = new dataGrid({ 
+									...
+									url : getData,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						grid数据获取地址 Function: eg:
+						var grid = new dataGrid({url:getGridData});
+						function getGridData(data,success,error){
+							//获取grid数据
+							//data包含分页信息
+							//success(josn_data) 获取数据后成功后回调函数
+							//error(msg) 获取数据后失败后回调函数
+							//success,error必须要调用其中一个，
+							//否则grid会处于loading
+						//json_data:
+						// {total:"255",
+							rows:[{},..] [,pageSize:50,pageNumber:1,
+							columns:[{}]]}	
+						//pageSize,pageNumber,columns是可选	
+						}
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">method</td>
+						<td>String</td>
+						<td>'post'</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									method : 'post',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						请求类型
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">dataType</td>
+						<td>String</td>
+						<td>'json'</td>
+						<td>
+							<pre name="code" class="javascript">
+								//默认json格式
+								var grid = new dataGrid({ 
+									...
+									dataType : 'json',
+									...
+								});
+							</pre>
+							<pre name="code" class="javascript">
+								//设置为 text 格式 方法1
+								var grid = new dataGrid({ 
+									...
+									textFilter : function( text ) {
+										//在此把text处理成json格式并返回
+										return text_json;
+									},
+									dataType : 'text',
+									...
+								});
+								//设置为 text 格式 方法2
+								window.textFilter = function( text ){
+									//在此把text处理成json格式并返回
+									return text_json;
+								}
+								var grid = new dataGrid({ 
+									...
+									dataType : 'text',
+									...
+								});
+								//设置为 text 格式 方法3
+								var grid = new dataGrid({ 
+									...
+									init : function(){
+										this.textFilter = function( text ){
+											//在此把text处理成json格式并返回
+											return text_json;
+										}
+									},
+									dataType : 'text',
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						目前默认只支持json格式,如果需要其他类型需要自定义解析函数
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">queryParams</td>
+						<td>Object</td>
+						<td>{}</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									queryParams : { tid:1 },
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						自定义请求信息
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">singleSelect</td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									singleSelect : true,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						开启单选模式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">pageNumber</td>
+						<td>Number</td>
+						<td>1</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									pageNumber : 1,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						当前显示页数
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">pageSize</td>
+						<td>Number</td>
+						<td>50</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									pageSize : 100,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						当前显示页显示数
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowStyler</td>
+						<td>String,Function</td>
+						<td>''</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									//rowStyler : 'row-wanning',
+									rowStyler : function(rid,rowdata){
+										//...
+										return 'row-wanning'
+									},
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						设置当前行样式
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">rowCallBack</td>
+						<td>Function</td>
+						<td>$.noop</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									rowCallBack : function(rid,rowdata){
+										//...
+									},
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						行回调
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">denyRowEvents</td>
+						<td>Boolean|Function</td>
+						<td>false</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									denyRowEvents : false,
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						是否禁止所行有事件，最好不要设置true
+						</td>
+					</tr>
+					<tr>
+						<td class="doc-conf">eventMaps</td>
+						<td>Object</td>
+						<td>{}</td>
+						<td>
+							<pre name="code" class="javascript">
+								var grid = new dataGrid({ 
+									...
+									eventMaps : { 
+										'onClickRow' : 'onRowClick' 
+									},
+									...
+								});
+							</pre>
+						</td>
+						<td>
+						事件别名设置
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+</div>
+<div class="footer" style="">
+    <div class="wraper">      
+		<div style="height:100px;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+$(window).ready(function(){
+	dp.SyntaxHighlighter.ClipboardSwf = 'js/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+});
+</script>
+</body>
+</html>

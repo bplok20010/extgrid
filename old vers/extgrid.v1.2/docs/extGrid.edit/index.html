@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>bigTable-Test</title>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/jquery.extGrid.debug.js"></script>
+<script type="text/javascript" src="js/jquery.extGrid.debug.edit.js"></script>
+<link href="css/grid.debug.css" rel="stylesheet" type="text/css" />   
+<link href="css/edit.css" rel="stylesheet" type="text/css" />   
+
+
+</head>
+<div style=" width:600px; height:300px;" id="tab"></div>
+<body>
+
+<script type="text/javascript">
+function getData(){
+	var rows = [];
+	for(var i=1; i<=200; i++){
+		var amount = Math.floor(Math.random()*1000);
+		var price = Math.floor(Math.random()*1000);
+		rows.push({
+			inv: 'Inv No '+i,
+			name: 'Name '+i,
+			amount: amount,
+			price: price,
+			cost: amount*price,
+			a1cadf:'adfa',
+			a2cadf:'adfa',
+			ac3adf:'abc',
+			ac4adf:'adfa',
+			ac5adf:'adfa',
+			ac6adf:'adfa',
+			ac7adf:'adfa',
+			note: 'Note '+i
+		});
+	}
+	return rows;
+}
+var grid = $("#tab").extgrid({pageSize:50,data:getData(),rowNumbersWidth:24,checkBox:true,showHeader:true,singleSelect:false,pagination:true,_lSize:0,denyRowEvents:false});
+
+grid.bind("onCellEdit",function(t,rid,field,rowData){
+	alert('我是修改后的值:'+rowData[field]);
+});
+</script>
+<div style="display:none">
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=26881805" charset="UTF-8"></script>
+
+</div>
+</body>
+</html>

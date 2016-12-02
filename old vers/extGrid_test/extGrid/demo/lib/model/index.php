@@ -1,0 +1,9 @@
+<?php
+require_once('functions.php');
+G('start');
+require_once('config.php');
+require_once('CacheFile.class.php');
+require_once('BuildSql.class.php');
+require_once('Db.Mysql.class.php');
+require_once('Model.class.php');
+?>

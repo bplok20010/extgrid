@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>extGrid文档</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="doc" id="doc">
+	<table class="zebra">
+      <colgroup>
+      <col class="col1">
+      <col class="col2">
+      <col class="col3">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="parameter">名称</th>
+          <th class="default">回调参数</th>
+          <th class="note">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="separate" colspan="3"><abbrev>基本事件(默认this都指向grid本身)</abbrev></th>
+        </tr>
+        <tr>
+          <th><a href="#onStart">onStart</a></th>
+          <td>param1:配置信息</td>
+          <td>grid初始化是调用</td>
+        </tr>
+        <tr>
+          <th><a href="#onStart">onViewCreate</a></th>
+          <td>无</td>
+          <td>grid显示数据之前调用</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeLoad">onBeforeLoad</a></th>
+          <td>param1:请求参数</td>
+          <td>请求远程数据开始时，返回false可取消本次请求</td>
+        </tr>
+		<tr>
+          <th><a href="#onLoadSuccess">onLoadSuccess</a></th>
+          <td>param1:请求所得的数据</td>
+          <td>grid调用远程数据成功</td>
+        </tr>
+		<tr>
+          <th><a href="#onLoadSuccess">onLoadError</a></th>
+          <td>param1:错误信息</td>
+          <td>grid调用远程数据失败</td>
+        </tr>
+		<tr>
+          <th><a href="#onClickRow">onClickRow</a></th>
+          <td>
+		  	param1:当前行对象<br>
+		  	param2:当前行id<br>
+			param3:当前行数据<br>
+			param4:event
+		  </td>
+          <td>行事件,返回false取消事件传递</td>
+        </tr>
+		<tr>
+          <th><a href="#onDblClickRow">onDblClickRow</a></th>
+          <td>
+		  	param1:当前行对象<br>
+		  	param2:当前行id<br>
+			param3:当前行数据<br>
+			param4:event
+		  </td>
+          <td>行事件,返回false取消事件传递</td>
+        </tr>
+		<tr>
+          <th><a href="#onRowContextMenu">onRowContextMenu</a></th>
+          <td>
+		  	param1:当前行对象<br>
+		  	param2:当前行id<br>
+			param3:当前行数据<br>
+			param4:event
+		  </td>
+          <td>行事件,返回false取消事件传递</td>
+        </tr>
+		<tr>
+          <th><a href="#onOverRow">onOverRow</a></th>
+          <td>
+		  	param1:当前行id<br>
+			param2:event
+		  </td>
+          <td>行事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onOutRow">onOutRow</a></th>
+          <td>
+		  	param1:当前行id<br>
+			param2:event
+		  </td>
+          <td>行事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onSelect">onSelect</a></th>
+          <td>
+		  	param1:当前行对象，包括rowNumber，所以是一个数组<br>
+			param2:当前行id<br>
+			param3:当前行数据
+		  </td>
+          <td>行事件,返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onUnselect">onUnselect</a></th>
+          <td>
+		  	param1:当前行对象，包括rowNumber，所以是一个数组<br>
+			param2:当前行id<br>
+			param3:当前行数据
+		  </td>
+          <td>行事件,返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onSelectAll">onSelectAll</a></th>
+          <td>
+		  无
+		  </td>
+          <td>行事件,返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onUnselectAll">onUnselectAll</a></th>
+          <td>
+		  无
+		  </td>
+          <td>行事件,返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onHeaderContextMenu">onHeaderContextMenu</a></th>
+          <td>
+			param1:行对象<br>
+			param2:event
+		  </td>
+          <td>返回false取消事件传递</td>
+        </tr>
+		<tr>
+          <th><a href="#onHeaderCreate">onHeaderCreate</a></th>
+          <td>
+			无
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onToolBarCreate">onToolBarCreate</a></th>
+          <td>
+			param1:工具栏对象<br>
+			param2:工具栏配置信息
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onColumnOver">onColumnOver</a></th>
+          <td>
+		  	param1:当前列头对象<br>
+			param2:event
+		  </td>
+          <td>mouseover列头</td>
+        </tr>
+		<tr>
+          <th><a href="#onColumnOut">onColumnOut</a></th>
+          <td>
+		  	param1:当前列头对象<br>
+			param2:event
+		  </td>
+          <td>mouseout列头</td>
+        </tr>
+		<tr>
+          <th><a href="#onOverCell">onOverCell</a></th>
+          <td>
+		  	param1:当前单元格对象<br>
+			param2:行id<br>
+			param3:当前列<br>
+			param4:当前单元格内容<br>
+			param5:event
+		  </td>
+          <td>单元格事件。返回false,不会触发行事件,单元格事件都一样</td>
+        </tr>
+		<tr>
+          <th><a href="#onOutCell">onOutCell</a></th>
+          <td>
+		  	param1:当前单元格对象<br>
+			param2:行id<br>
+			param3:当前列<br>
+			param4:当前单元格内容<br>
+			param5:event
+		  </td>
+          <td>单元格事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onClickCell">onClickCell</a></th>
+          <td>
+		  	param1:当前单元格对象<br>
+			param2:行id<br>
+			param3:当前列<br>
+			param4:当前单元格内容<br>
+			param5:event
+		  </td>
+          <td>单元格事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onDblClickCell">onDblClickCell</a></th>
+          <td>
+		  	param1:当前单元格对象<br>
+			param2:行id<br>
+			param3:当前列<br>
+			param4:当前单元格内容<br>
+			param5:event
+		  </td>
+          <td>单元格事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onCellContextMenu">onCellContextMenu</a></th>
+          <td>
+		  	param1:当前单元格对象<br>
+			param2:行id<br>
+			param3:当前列<br>
+			param4:当前单元格内容<br>
+			param5:event
+		  </td>
+          <td>单元格事件</td>
+        </tr>
+		<tr>
+          <th><a href="#onSortColumn">onSortColumn</a></th>
+          <td>
+		  	param1:当前列field
+		  </td>
+          <td>返回false取消排序</td>
+        </tr>
+		<tr>
+          <th><a href="#onResizeColumnStart">onResizeColumnStart</a></th>
+          <td>
+		  	param1:辅助线对象<br>
+			param2:配置参数<br>
+			param3:event
+		  </td>
+          <td>列大小改变事件，返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onResizeColumn">onResizeColumn</a></th>
+          <td>
+			param1:配置参数<br>
+			param2:event
+		  </td>
+          <td>列大小改变事件，返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onResizeColumnStop">onResizeColumnStop</a></th>
+          <td>
+			param1:列大小改变后的配置信息
+		  </td>
+          <td>列大小改变事件，返回false取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterResize">onAfterResize</a></th>
+          <td>
+			param1:列大小改变后的配置信息
+		  </td>
+          <td>列大小改变事件，返回false取消本次行为,这个事件不建议返回false</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeRefresh">onBeforeRefresh</a></th>
+          <td>
+			无
+		  </td>
+          <td>grid刷新</td>
+        </tr>
+		<tr>
+          <th><a href="#onRefresh">onRefresh</a></th>
+          <td>
+			无
+		  </td>
+          <td>grid刷新</td>
+        </tr>
+		<tr>
+          <th><a href="#onChangePageSize">onChangePageSize</a></th>
+          <td>
+			param1:pageSize
+		  </td>
+          <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onSelectPage">onSelectPage</a></th>
+          <td>
+			param1:pageSize
+		  </td>
+          <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeShowGrid">onBeforeShowGrid</a></th>
+          <td>
+			无
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onShowGrid">onShowGrid</a></th>
+          <td>
+			无
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onGetData">onGetData</a></th>
+          <td>
+			param1:当前页的显示数据data
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onPagerCreate">onPagerCreate</a></th>
+          <td>
+			param1:pager对象
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onClickRowNumber">onClickRowNumber</a></th>
+          <td>
+			param1:当前行id<br>
+			param2:event
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onSearch">onSearch</a></th>
+          <td>
+			param1:当前搜索到的数据集
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onExpandRow">onExpandRow</a></th>
+          <td>
+			param1:当前行id
+		  </td>
+          <td>扩展行触发</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeLockColumn">onBeforeLockColumn</a></th>
+          <td>
+			param1:当前要锁的列
+		  </td>
+          <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterLockColumn">onAfterLockColumn</a></th>
+          <td>
+			param1:当前要锁的列
+		  </td>
+          <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeUnlockColumn">onBeforeUnlockColumn</a></th>
+          <td>
+			param1:当前要取消列锁的列
+		  </td>
+           <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterUnLockColumn">onAfterUnLockColumn</a></th>
+          <td>
+			param1:当前要取消列锁的列
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeLockRow">onBeforeLockRow</a></th>
+          <td>
+			param1:当前需要行锁的行id
+		  </td>
+           <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterLockRow">onAfterLockRow</a></th>
+          <td>
+			param1:当前需要行锁的行id
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeUnlockRow">onBeforeUnlockRow</a></th>
+          <td>
+			param1:当前需要解锁的行id
+		  </td>
+           <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterUnLockRow">onAfterUnLockRow</a></th>
+          <td>
+			param1:当前需要解锁的行id
+		  </td>
+           <td>返回false可取消本次行为</td>
+        </tr>
+		<tr>
+          <th><a href="#onSizeChange">onSizeChange</a></th>
+          <td>
+			param1:width<br>
+			param2:height
+		  </td>
+           <td>grid大小改变时</td>
+        </tr>
+		<tr>
+          <th><a href="#onViewSizeChange">onViewSizeChange</a></th>
+          <td>
+		  无
+		  </td>
+           <td>gird列表部分有变动时触发</td>
+        </tr>
+		<tr>
+          <th><a href="#onScroll">onScroll</a></th>
+          <td>
+		  无
+		  </td>
+           <td>拖动grid滚动条</td>
+        </tr>
+		<tr>
+          <th><a href="#onCellEdit">onCellEdit</a></th>
+          <td>
+		  param1:当前单元格对象<br>
+		  param2:当前行id<br>
+		  param3:当前列field<br>
+		  param4:修改后的值<br>
+		  param5:修改后的行数据
+		  </td>
+           <td>单元格内容有改变时触发，一般是调用了setFieldValue</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeAddRow">onBeforeAddRow</a></th>
+          <td>
+		  param1:添加的数据
+		  </td>
+           <td>返回false取消本次行文</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterAddRow">onAfterAddRow</a></th>
+          <td>
+		  param1:当前行id<br>
+		  param2:data
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeUpdateRow">onBeforeUpdateRow</a></th>
+          <td>
+		 param1:当前行id<br>
+		  param2:data
+		  </td>
+           <td>返回false取消本次行文</td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeUpdateRow">onBeforeUpdateRow</a></th>
+          <td>
+		 param1:当前行id<br>
+		  param2:data<br>
+		   param3:有修改的列<br>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeDeleteRow">onBeforeDeleteRow</a></th>
+          <td>
+		 param1:当前行id
+		  </td>
+           <td>返回false取消本次行文</td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterDeleteRow">onAfterDeleteRow</a></th>
+          <td>
+		 param1:当前行id
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onColumnMove">onColumnMove</a></th>
+          <td>
+		 param1:配置信息
+		  </td>
+           <td>拖拽列触发</td>
+        </tr>
+		<tr>
+          <th><a href="#onColumnMoving">onColumnMoving</a></th>
+          <td>
+		 param1:配置信息
+		  </td>
+           <td>返回false取消本次行为</td>
+        </tr>
+		<th class="separate" colspan="3"><abbrev>可编辑Grid扩展事件(默认this都指向grid本身)</abbrev></th>
+		<tr>
+          <th><a href="#onStart.ext">onStart</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onCreate.ext">onCreate</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onSizeChange.ext">onSizeChange</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onClick.ext">onClick</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onFocus.ext">onFocus</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBlur.ext">onBlur</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onKeyDown.ext">onKeyDown</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onKeyUp.ext">onKeyUp</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onKeyPress.ext">onKeyPress</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onMouseOver.ext">onMouseOver</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onMouseOut.ext">onMouseOut</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onPaste.ext">onPaste</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onSpinnerUp.ext">onSpinnerUp</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onSpinnerDown.ext">onSpinnerDown</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeSet.ext">onBeforeSet</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterSet.ext">onAfterSet</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onBeforeGet.ext">onBeforeGet</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onAfterGet.ext">onAfterGet</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onChange.ext">onChange</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onValidError.ext">onValidError</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onValidSuccess.ext">onValidSuccess</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+		<tr>
+          <th><a href="#onDestroy.ext">onDestroy</a></th>
+          <td>
+		  </td>
+           <td></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</body>
+</html>
