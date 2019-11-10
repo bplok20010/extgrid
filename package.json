@@ -1,0 +1,28 @@
+{
+    "name": "extgrid",
+    "version": "1.2.7",
+    "description": "",
+    "main": "src/jquery.extGrid.debug.js",
+    "directories": {
+        "example": "examples"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bplok20010/extgrid.git"
+    },
+    "files": [
+        "src"
+    ],
+    "keywords": [
+        "extgrid"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/bplok20010/extgrid/issues"
+    },
+    "homepage": "https://github.com/bplok20010/extgrid#readme"
+}

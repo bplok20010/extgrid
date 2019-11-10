@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>extGrid-表格</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/SyntaxHighlighter.css" type="text/css" media="all" />
+<Meta name="Copyright" Content="grid,js,javascript,jquery,datagrid,table">
+<meta name="keywords" content="grid-js-javascript-jquery-datagrid-table">
+<meta name='description' content='grid-js-javascript-jquery-datagrid-table'>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/SyntaxHighlighter.js"></script>
+<style type="text/css">
+<!--
+.STYLE1 {color: #DD0000}
+-->
+.strong { font-weight:bold;}
+.left-side a:hover { font-weight:bold; text-decoration:none;}
+</style></head>
+
+<body>
+<div class="header">
+    <div class="wraper">
+        <ul class="nav">
+            <li><a href="./index.html" >首页</a></li>
+			<li><a href="./configs.html">文档</a></li>
+			<li><a href="./events.html">事件</a></li>
+			<li><a href="./api.html" class="current">API</a></li>
+			<li><a href="./index.html">扩展</a></li>
+			<li><a href="./index.html">演示</a></li>
+			<li><a href="./index.html">帮助</a></li>
+			
+			<li><a href="http://www.extgrid.com/download.html?demo">下载</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="wraper">  
+		<div class="doc doc-title">
+			<h2>基本参数</h2>
+		</div>
+		<div class="doc doc-content">
+			<table class="doc-table">
+				<thead>
+					<tr>
+						<th width="96px">名称</th>
+						<th width="70px">参数</th>
+						<th width="255px">含义</th>
+					</tr>
+				</thead>	
+				<tbody>
+					<tr>
+					  <th><a href="#bind">bind</a></th>
+					  <td>eventType,func[,scope]</td>
+					  <td>事件绑定<br>eventType(String):需要绑定的事件<br>func(Function):事件处理函数<br>
+					  scope(Object):this作用域，默认是grid本身
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#one">one</a></th>
+					  <td>eventType,func[,scope]</td>
+					  <td>同bind ，区别在于只执行一次
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#unbind">unbind</a></th>
+					  <td>eventType,eventID</td>
+					  <td>取消事件绑定<br>eventType(String):需要取消绑定的事件<br>eventID(Number):事件ID
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#fireEvent">fireEvent</a></th>
+					  <td>eventType,params</td>
+					  <td>触发事件<br>eventType(String):需要触发的事件<br>params(Array):触发事件所带的参数
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#showLoading">showLoading</a></th>
+					  <td>[msg]</td>
+					  <td>显示Loading层<br>msg(String):提示内容
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#hideLoading">hideLoading</a></th>
+					  <td></td>
+					  <td>关闭Loading层
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#getColumnData">getColumnData</a></th>
+					  <td>[field,key,value]</td>
+					  <td>设置或获取columns的配置信息,注：部分参数设置后会立即刷新表格
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#setColumnData">setColumnData</a></th>
+					  <td>[field,key,value]</td>
+					  <td>设置或获取columns的配置信息,注：部分参数设置后会立即刷新表格
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#setColumnValue">setColumnValue</a></th>
+					  <td>field,key,value</td>
+					  <td>设置或获取columns的配置信息,注：设置后不会会立即刷新表格
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#getData">getData</a></th>
+					  <td></td>
+					  <td>取得当前grid的数据
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#onSizeChange">onSizeChange</a></th>
+					  <td>[width,height]</td>
+					  <td>设置grid大小
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#setWH">setWH</a></th>
+					  <td>[width,height]</td>
+					  <td>设置grid大小
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#onViewSizeChange">onViewSizeChange</a></th>
+					  <td></td>
+					  <td>更新视图大小
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#getRowData">getRowData</a></th>
+					  <td>rid[,isPK]</td>
+					  <td>获取行数据<br>
+					  isPK(boolean):默认false,true:根据pk来索引
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#setRowData">setRowData</a></th>
+					  <td>rid,field,value</td>
+					  <td>设置行数据<br>
+					  注意field并不是column的field应该是index,但是大部分情况下field和index默认是一样的，
+					  建议使用setFieldValue来设置单元格内容
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#getFieldValue">getFieldValue</a></th>
+					  <td>rid,field</td>
+					  <td>获取单元格数据容
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#setFieldValue">setFieldValue</a></th>
+					  <td>rid,field,value</td>
+					  <td>设置单元格数据容,return false 则无修改
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#getSlectRows">getSlectRows</a></th>
+					  <td>Boolean</td>
+					  <td>获取选中的行<br>
+					  默认是false 返回行id, 为true时返回选中的数据集
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#lockRow">lockRow</a></th>
+					  <td>rid</td>
+					  <td>锁定某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#unLockRow">unLockRow</a></th>
+					  <td>rid</td>
+					  <td>取消某行的锁定</td>
+					</tr>
+					<tr>
+					  <th><a href="#lockColumn">lockColumn</a></th>
+					  <td>field</td>
+					  <td>锁定某列</td>
+					</tr>
+					<tr>
+					  <th><a href="#unLockColumn">unLockColumn</a></th>
+					  <td>field</td>
+					  <td>取消某列的锁定</td>
+					</tr>
+					<tr>
+					  <th><a href="#getColumns">getColumns</a></th>
+					  <td></td>
+					  <td>获取列配置信息</td>
+					</tr>
+					<tr>
+					  <th><a href="#getColumnList">getColumnList</a></th>
+					  <td></td>
+					  <td>获取包含所有列名的数组</td>
+					</tr>
+					<tr>
+					  <th><a href="#showColumn">showColumn</a></th>
+					  <td>field</td>
+					  <td>显示某一列</td>
+					</tr>
+					<tr>
+					  <th><a href="#hideColumn">hideColumn</a></th>
+					  <td>field</td>
+					  <td>隐藏某一列</td>
+					</tr>
+					
+					<tr>
+					  <th><a href="#selectAllRows">selectAllRows</a></th>
+					  <td></td>
+					  <td>选择所有行</td>
+					</tr>
+					<tr>
+					  <th><a href="#unselectAllRows">unselectAllRows</a></th>
+					  <td></td>
+					  <td>取消选择所有行</td>
+					</tr>
+					<tr>
+					  <th><a href="#selectRow">selectRow</a></th>
+					  <td>rid</td>
+					  <td>选择某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#unselectRow">unselectRow</a></th>
+					  <td>rid</td>
+					  <td>取消选择某行</td>
+					</tr>
+					
+					<tr>
+					  <th><a href="#refreshData">refreshData</a></th>
+					  <td></td>
+					  <td>刷新表格</td>
+					</tr>
+					<tr>
+					  <th><a href="#refreshDataCache">refreshDataCache</a></th>
+					  <td></td>
+					  <td>刷新当前页</td>
+					</tr>
+					<tr>
+					  <th><a href="#C">C</a></th>
+					  <td>[key,value]</td>
+					  <td>设置或获取配置信息</td>
+					</tr>
+					<tr>
+					  <th><a href="#addData">addData</a></th>
+					  <td>Array</td>
+					  <td>为grid添加数据,添加后会立即刷新表格</td>
+					</tr>
+					<tr>
+					  <th><a href="#updateData">updateData</a></th>
+					  <td>Array</td>
+					  <td>更新grid数据,更新后会立即刷新表格</td>
+					</tr>
+					<tr>
+					  <th><a href="#deleteData">deleteData</a></th>
+					  <td>Array</td>
+					  <td>删除grid数据,删除后会立即刷新表格</td>
+					</tr>
+					<tr>
+					  <th><a href="#setFieldWidth">setFieldWidth</a></th>
+					  <td>field,width</td>
+					  <td>设置列宽，支持百分比</td>
+					</tr>
+					<tr>
+					  <th><a href="#addRow">addRow</a></th>
+					  <td>rowData,ai</td>
+					  <td>追加一行,ai : true默认自动识别是否超过pageSize,false:不识别直接追加一行</td>
+					</tr>
+					<tr>
+					  <th><a href="#updateRow">updateRow</a></th>
+					  <td>rid,data</td>
+					  <td>更新某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#deleteRow">deleteRow</a></th>
+					  <td>rid</td>
+					  <td>删除某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#metaData">metaData</a></th>
+					  <td>data</td>
+					  <td>添加元数据:json_data</td>
+					</tr>
+					<tr>
+					  <th><a href="#updateGrid">updateGrid</a></th>
+					  <td>Array</td>
+					  <td>更新当前页gird数据并显示</td>
+					</tr>
+					<tr>
+					  <th><a href="#scrollToField">scrollToField</a></th>
+					  <td>field</td>
+					  <td>滚动到列</td>
+					</tr>
+					<tr>
+					  <th><a href="#scrollToRow">scrollToRow</a></th>
+					  <td>rid</td>
+					  <td>滚动到某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#hideHeader">hideHeader</a></th>
+					  <td></td>
+					  <td>隐藏列头</td>
+					</tr>
+					<tr>
+					  <th><a href="#showHeader">showHeader</a></th>
+					  <td></td>
+					  <td>显示列头</td>
+					</tr>
+					<th class="separate" colspan="3"><abbrev>可编辑Grid扩展API(默认this都指向grid本身)</abbrev></th>
+					<tr>
+					  <th><a href="#getEditCellValue">getEditCellValue</a></th>
+					  <td>rid,field</td>
+					  <td>获取编辑状态下的编辑内容</td>
+					</tr>
+					<tr>
+					  <th><a href="#checkEditCell">checkEditCell</a></th>
+					  <td>rid,field</td>
+					  <td>验证当前编辑单元内容是否正确</td>
+					</tr>
+					<tr>
+					  <th><a href="#editCell">editCell</a></th>
+					  <td>rid,field</td>
+					  <td>编辑某单元格</td>
+					</tr>
+					<tr>
+					  <th><a href="#saveEditCell">saveEditCell</a></th>
+					  <td>[rid,field]</td>
+					  <td>保存并验证正处于编辑状态的单元格,没指定rid,field则保存所有正处于编辑中的单元格该函数会触发onCellEdit<br>
+					  返回成功保存的单元格数据eg:
+					  [ {rid:1,field:'name'} ]
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#unEditCell">unEditCell</a></th>
+					  <td>rid,field</td>
+					  <td>不做任何保存，以及验证，直接取消当前单元格的编辑状态</td>
+					</tr>
+					<tr>
+					  <th><a href="#unEditCell">unEditCell</a></th>
+					  <td>[rid,field]</td>
+					  <td>不做任何保存，以及验证，直接取消当前单元格的编辑状态,没指定rid,field则取消所有正处于编辑中的单元格</td>
+					</tr>
+					<tr>
+					  <th><a href="#editCell">editRow</a></th>
+					  <td>rid</td>
+					  <td>编辑某行</td>
+					</tr>
+					<tr>
+					  <th><a href="#checkEditRow">checkEditRow</a></th>
+					  <td>rid</td>
+					  <td>验证当前编辑行是否有没通过的单元格</td>
+					</tr>
+					<tr>
+					  <th><a href="#saveEditRow">saveEditRow</a></th>
+					  <td>rid</td>
+					  <td>保存当前行，返回成功验证并保存的单元格数组eg:[ {rid:1,field:'name'} ]<br>
+						改函数会触发onRowEdit事件 回调函数可接受参数:rid,rowData,successSave(eg:[ {rid:1,field:'name'} ])
+					  </td>
+					</tr>
+					<tr>
+					  <th><a href="#unEditRow">unEditRow</a></th>
+					  <td>rid</td>
+					  <td>不做任何保存，以及验证取消当前行的编辑</td>
+					</tr>
+      </tbody>
+			</table>
+		</div>
+    </div>
+</div>
+<div class="footer" style="">
+    <div class="wraper">      
+		
+    </div>
+</div>
+<script type="text/javascript">
+$(window).ready(function(){
+	dp.SyntaxHighlighter.ClipboardSwf = 'js/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+});
+</script>
+</body>
+</html>

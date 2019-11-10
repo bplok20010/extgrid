@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>extGrid-表格</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/SyntaxHighlighter.css" type="text/css" media="all" />
+<Meta name="Copyright" Content="grid,js,javascript,jquery,datagrid,table">
+<meta name="keywords" content="grid-js-javascript-jquery-datagrid-table">
+<meta name='description' content='grid-js-javascript-jquery-datagrid-table'>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/SyntaxHighlighter.js"></script>
+<style type="text/css">
+<!--
+.STYLE1 {color: #DD0000}
+-->
+.strong { font-weight:bold;}
+.left-side a:hover { font-weight:bold; text-decoration:none;}
+</style></head>
+
+<body>
+<div class="header">
+    <div class="wraper">
+        <ul class="nav">
+            <li><a href="./index.html" >首页</a></li>
+			<li><a href="./configs.html">文档</a></li>
+			<li><a href="./events.html" class="current">事件</a></li>
+			<li><a href="./api.html">API</a></li>
+			<li><a href="./index.html">扩展</a></li>
+			<li><a href="./index.html">演示</a></li>
+			<li><a href="./index.html">帮助</a></li>
+			
+			<li><a href="http://www.extgrid.com/download.html?demo">下载</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="wraper">  
+		<div class="doc doc-title">
+			<h2>基本参数</h2>
+		</div>
+		<div class="doc doc-content">
+			<table class="doc-table">
+				<thead>
+					<tr>
+						<th width="96px">事件名</th>
+						<th width="96px">回传参数</th>
+						<th width="220px">格式举例(<font color="#E16262">没特别说明事件回调函数的this都指向grid本身</font>)</th>
+						<th width="255px">含义</th>
+					</tr>
+				</thead>	
+				<tbody>
+				<tr>
+					<td colspan="4">
+						<pre name="code" class="javascript">
+							//没特别说明事件回调函数的this都指向grid本身
+							//事件绑定1
+							var grid = new dataGrid({ 
+								...
+								onStart:function(){},
+								onStart.t:function(){},
+								onStart.t2:function(){},
+								...
+							});
+							//事件绑定2
+							grid.bind( 'onStart',func );
+							grid.one( 'onStart',func );
+						</pre>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="doc-conf">所有事件一览表</td>
+					<td colspan="3">
+					<pre name="code" class="javascript">
+				{
+					//opt
+					onStart : $.noop,//创建开始
+					
+					onViewCreate : $.noop,
+					
+					onShowContainer : $.noop,
+					
+					onFinish : $.noop,//创建结束
+					//调用远程数据开始,如果返回false讲取消本次请求
+					//opt.queryParams,opt
+					//必须设置url才生效
+					onBeforeLoad : $.noop,
+					//调用远程数据成功
+					//data,successBack,opt
+					onLoadSuccess : $.noop,
+					//调用远程数据失败
+					//msg,errorBack,xmlHttp,opt
+					onLoadError : $.noop,
+					//当用户点击一行时触发
+					
+					//当用户mouseover表头的单元格
+					//field,td,e
+					onColumnOver : $.noop,
+					//当用户mouseout表头的单元格
+					//field,td,e
+					onColumnOut : $.noop,
+					//当用户mouseover cell
+					//td,rowId,field,value,e
+					onClickCell : $.noop,
+					onDblClickCell : $.noop,
+					onCellContextMenu : $.noop,
+					onOverCell : $.noop,
+					onOutCell : $.noop,
+					//tr,rowId,rowData,e
+					onClickRow : $.noop,
+					onOverRow : $.noop,
+					onOutRow : $.noop,
+					onDblClickRow : $.noop,
+					onRowContextMenu : $.noop,
+					///当用户调整列的尺寸时触发
+					//div(resize),opt,e
+					onResizeColumnStart : $.noop,
+					//opt,e
+					onResizeColumn : $.noop,//当用户调整列的尺寸时触发
+					//cfg,opt
+					onResizeColumnStop : $.noop,//当用户调整列的尺寸时触发
+					//当用户调整列大小后触发,如果onResizeColumnStop 返回false 那么不会执行
+					//cfg.field,w,cfg
+					onAfterResize : $.noop,
+					//obj(包含view1,view2里的tr),rowId,rowData,opt
+					onSelect : $.noop,//用户选中一行时触发
+					onUnselect : $.noop,//当用户取消选择一行时触发
+					onSelectAll : $.noop,//当用户选中全部行时触发
+					//opt
+					onUnselectAll : $.noop,//当用户取消选中全部行时触发
+					//tr,e
+					onHeaderContextMenu : $.noop,//当 datagrid 的头部被右键单击时触发
+					//tr,ltr,opt
+					onHeaderCreate : $.noop,//当 grid-header 创建完成时调用
+					//obj(tool dom),opt.toolBars,opt
+					onToolBarCreate: $.noop,//排序触发1
+					//opt
+					onBeforeRefresh : $.noop,
+					onRefresh : $.noop,
+					//grid显示数据后调用
+					onShowGrid : $.noop,
+					onBeforeShowGrid : $.noop, 
+					//opt.data,opt
+					onGetData : $.noop,//1 grid 数据变动都会调用
+					//ltr,rowId,rowData,e
+					onClickRowNumber : $.noop,
+					////隐藏/显示列触发
+					onShowColumn : $.noop,
+					onHideColumn : $.noop,
+					onBeforeHideColumn : $.noop,
+					onBeforeShowColumn : $.noop,
+					//opt grid视图大小有变动时触发
+					onViewSizeChange : $.noop,
+					//opt grid大小改变时触发
+					onSizeChange : $.noop,
+					//field,changeWidth,width,w,opt
+					onFieldWidthChange : $.noop,
+					onScroll : $.noop,
+					//手动拖动滚动条时触发
+					onScrollBar : $.noop,
+					//滚到到底是触发
+					onScrollEnd : $.noop,
+					//数据有变更
+					onDataChange : $.noop,
+					//单元格数据有变更调用
+					//rid,field,value,rowData,opt
+					onBeforeCellEdit : $.noop,
+					//单元格数据有变更调用
+					//td,rid,field,value,rowData,opt
+					onCellEdit : $.noop,
+					//data,opt
+					onBeforeAddRow : $.noop,//添加行
+					//rid,data,opt
+					onAfterAddRow : $.noop,//添加行
+					//rid,data,opt
+					onBeforeUpdateRow : $.noop,//修改行
+					//rid,data,editList,opt
+					onAfterUpdateRow : $.noop,//修改行
+					//rid,opt
+					onBeforeDeleteRow : $.noop,//删除改行
+					//rid,opt
+					onAfterDeleteRow : $.noop,//删除改行
+					//data
+					onAdd : $.noop,//添加数据
+					onUpdate : $.noop,//更新数据
+					onDelete : $.noop,//删除数据
+					onAjaxAdd : $.noop,//远程添加数据 需要自定义
+					onAjaxUpdate : $.noop,//远程更新数据 需要自定义
+					onAjaxDelete : $.noop,//远程删除数据 需要自定义
+					//moveField,moveToField,t,opt
+					onColumnMove : $.noop,
+					//_target(当前拖动的副本),moveField,moveToField,opt
+					onColumnMoving : $.noop,
+					//moveField,opt
+					onBeforeColumnMove : $.noop,
+					//最后的处理ColumnMove 返回false 可取消Move
+					//moveField,moveToField,t,opt
+					onBeforeSwitchColumn  : $.noop,
+					//列宽度只适应
+					//opt
+					onAutoColumnResize : $.noop,//开启forceFit 如果列自适应会触发此事件
+					//开启lazyLoadRow后,每次显示lazyLoadRow时调用
+					//lazyRows,opt
+					onShowLazyRows : $.noop,
+					//因为滚动条滚动，而需要移除的行
+					//rid,opt
+					onBeforeLazyRowHide : $.noop,
+					onLazyRowHide : $.noop,
+					//因为滚动条滚动，而需要加载的行
+					onLazyRowShow : $.noop,
+					
+					onUpdateHeaderRow : $.noop,
+					onUpdateFooterRow : $.noop,
+					//column,proto,value
+					onColumnValueChange : $.noop//列信息改变是触发
+				}
+					</pre>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+</div>
+<div class="footer" style="">
+    <div class="wraper">      
+		<div style="height:100px;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+$(window).ready(function(){
+	dp.SyntaxHighlighter.ClipboardSwf = 'js/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+});
+</script>
+</body>
+</html>

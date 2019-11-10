@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>bigTable-Test</title>
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="jquery.extgrid.v.1.2.5.all.min.js"></script>
+<script type="text/javascript" src="datepicker/WdatePicker.js"></script>
+	
+<link href="css/extgrid.v.1.2.5.all.css" rel="stylesheet" type="text/css" />   
+
+
+</head>
+
+<body>
+<div style=" width:800px; height:300px;" id="tab"></div>
+<div id="form"></div>
+<script type="text/javascript">
+function getData(){
+	var rows = [];
+	for(var i=1; i<=2000; i++){
+		var amount = Math.floor(Math.random()*1000);
+		var price = Math.floor(Math.random()*1000);
+		rows.push({
+			inv: 'Inv No '+i,
+			name: 'Name '+i,
+			amount: amount*0,
+			price: price,
+			cost: amount*price,
+			note: 'Note '+i
+		});
+	}
+	return rows;
+}
+var grid = $("#tab").extgrid({
+	pageSize:100,
+	data:getData(),
+	toolBars : [{text:'新增一行',callBack:function(){
+		grid.addRow({});
+	}}],
+	columns : [
+		{field:'inv',editor:{type:'date'}},
+		{field:'name',editor:{type:'checkbox',on:'name x',off:'name z'}},
+		{field:'amount',editor:{type:'select',items:[{value:1},{name:0},{name:3}]}},
+		{field:'price',editor:{type:'spinner'}},
+		{field:'cost',editor:{type:'textarea',height:70}},
+		{field:'note',editor:{type:'text',rules:['required']}}
+	],
+	rowNumbersWidth:24,
+	checkBox:true,
+	singleSelect:true,
+	responsive : true,
+	title : 'extgird可编辑测试',
+	pagination:true
+	});
+
+grid.bind("onCellEdit",function(t,rid,field,rowData){
+	//alert('我是修改后的值:'+rowData[field]);
+});
+var activeData = {};
+var activeRid = null;
+grid.bind("onSelect",function(obj,rowId,rowData){
+	
+	var grid = this;
+	//IE有显示的BUG 应该换成以下写法
+	setTimeout(function(){
+		grid.fireEvent("onScroll");
+		grid.editRow(rowId);
+	},0);
+	//其他写法
+	//grid.editRow(rowId);
+	
+	
+});
+grid.bind("onUnselect",function(obj,rowId,rowData){
+	
+	var grid = this;
+	grid.saveEditRow(rowId);
+	
+});
+grid.bind("onRowEdit",function(rid,rowData,successSave){
+	var grid = this;
+	//rowData 修改后的数据
+});
+</script>
+
+</body>
+</html>

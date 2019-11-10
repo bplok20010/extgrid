@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>行为样式设置</title>
+        <script
+            type="text/javascript"
+            src="../../docs-1.2.6/js/jquery-1.8.0.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../../docs-1.2.6/js/template.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../../docs-1.2.6/js/extgrid/jquery.extGrid.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../../docs-1.2.6/js/extgrid/jquery.extGrid.responsive.js"
+        ></script>
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../../docs-1.2.6/js/extgrid/themes/default/skin.css"
+        />
+    </head>
+    <body>
+        <h4>行为样式设置</h4>
+        <style type="text/css">
+            .extgrid-row-single {
+                background: #f8f8f8;
+            }
+            .extgrid-border {
+                border: 1px solid #d12610;
+            }
+            .extgrid-row-over {
+                background: #fefadd;
+            }
+            .extgrid-row-selected {
+                background: #a3c8f2;
+            }
+            .row-error {
+                color: red;
+            }
+            .row-error .weight {
+                font-weight: bold;
+            } /*单元格样式*/
+            .row-wanning {
+                color: #ff3aff;
+            }
+            .row-wanning .weight {
+                font-weight: bold;
+            } /*单元格样式*/
+        </style>
+        <div
+            style="width:100%; height:400px; overflow:hidden;"
+            id="extgrid"
+        ></div>
+        <script type="text/javascript">
+            var getData = function() {
+                var len = 300;
+                var data = [];
+                for (var i = 0; i < len; i++) {
+                    data.push({
+                        id: i + 1,
+                        username: "张三" + i,
+                        alias: "小明",
+                        gender: i % 5,
+                        age: i % 90,
+                        birthday: "2012-08-09",
+                        tel: 13124587451,
+                        country: "地球",
+                        address: "地球村",
+                        qq: 123456,
+                        hobby: "随便"
+                    });
+                }
+                return data;
+            };
+            var columns = [
+                { field: "username", title: "用户名", width: "20%" },
+                { field: "alias", title: "别名", width: "15%" },
+                {
+                    field: "gender",
+                    title: "性别",
+                    width: "15%",
+                    bcls: "weight",
+                    reader: { 0: "伪娘", 1: "男", 2: "女", _default_: "外星人" }
+                },
+                { field: "age", title: "年龄", width: "15%" },
+                { field: "birthday", title: "生日", width: "20%" }
+            ];
+            var datas = getData();
+            $(function() {
+                $("#extgrid").extgrid({
+                    columns: columns,
+                    rowNumbersWidth: 40,
+                    checkBox: true,
+                    containerCss: "extgrid-border", //边框样式
+                    clsOverRow: "extgrid-row-over", //行样式
+                    clsSelectRow: "extgrid-row-selected", //行样式
+                    clsSingleRow: "extgrid-row-single", //单号行样式
+                    clsDoubleRow: "extgrid-row-double", //双号行样式
+                    rowStyler: function(tr, rid, rowData) {
+                        //自定义行样式
+                        if (rowData["age"] < 10 || rowData["age"] > 90) {
+                            return "row-error";
+                        }
+                        if (rowData["gender"] == 0) {
+                            return "row-wanning";
+                        }
+                    },
+                    pageSize: 300,
+                    minWidth: 450,
+                    data: datas,
+                    onFinish: function() {
+                        var self = this;
+                        $(window).resize(function(e) {
+                            self.resize();
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
